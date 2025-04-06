@@ -53,6 +53,14 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Close mobile menu when clicking a nav item
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+    });
+});
+
 // Theme Management
 let isDarkMode = localStorage.getItem('theme') === 'dark';
 
