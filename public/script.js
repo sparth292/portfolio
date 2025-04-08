@@ -116,7 +116,6 @@ window.addEventListener('scroll', () => {
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
         if (pageYOffset >= sectionTop - 60) {
             current = section.getAttribute('id');
         }
@@ -128,6 +127,13 @@ window.addEventListener('scroll', () => {
             item.classList.add('active');
         }
     });
+
+    // Add scrolled class to navbar
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
 });
 
 // Initialize nav indicator
@@ -175,19 +181,36 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Typewriter Effect for Hero Section
-const heroTitle = document.querySelector('.hero h1');
-const text = heroTitle.textContent;
-heroTitle.textContent = '';
-
-let i = 0;
-function typeWriter() {
-    if (i < text.length) {
-        heroTitle.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
+// Typing Effect
+async function typeWriter(element, phrases) {
+    for (let phrase of phrases) {
+        // Clear the previous text
+        element.textContent = '';
+        
+        // Type each character of the current phrase
+        for (let i = 0; i < phrase.length; i++) {
+            element.textContent += phrase[i];
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        // Wait a bit longer between phrases
+        await new Promise(resolve => setTimeout(resolve, 500));
     }
 }
+
+// Initialize typing effect
+window.addEventListener('load', () => {
+    const typingText = document.querySelector('.typing-text');
+    const phrases = [
+        "Hi",
+        "Hi, I'm",
+        "Hi, I'm Parth",
+        "Hi, I'm Parth Salunke"
+    ];
+    
+    // Start typing effect
+    typeWriter(typingText, phrases);
+});
 
 // Project Card Hover Effect
 const projectCards = document.querySelectorAll('.project-card');

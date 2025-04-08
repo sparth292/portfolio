@@ -250,14 +250,16 @@ body {
         top: 80px;
         left: 0;
         width: 100%;
+        height: auto;
         background: var(--navbar-bg);
         backdrop-filter: blur(10px);
-        padding: 2rem;
+        padding: 1rem;
         flex-direction: column;
-        gap: 1rem;
-        transform: translateY(-100%);
+        gap: 0.5rem;
+        transform: translateY(-150%);
         opacity: 0;
-        transition: all 0.3s ease;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 4px 20px var(--card-shadow);
         z-index: 999;
     }
@@ -265,35 +267,65 @@ body {
     .nav-links.active {
         transform: translateY(0);
         opacity: 1;
+        visibility: visible;
     }
 
     .nav-item {
-        padding: 1rem;
-        justify-content: center;
         width: 100%;
+        padding: 1rem;
+        text-align: left;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+    }
+
+    .nav-item i {
+        width: 20px;
         text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .nav-item:hover {
+        background: var(--hover-bg);
+        color: var(--primary-color);
+    }
+
+    .nav-item.active {
+        background: var(--tag-bg);
+        color: var(--primary-color);
     }
 
     .hamburger {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
         cursor: pointer;
-        padding: 0.5rem;
+        padding: 8px;
         border-radius: 8px;
         transition: all 0.3s ease;
     }
 
+    .hamburger:hover {
+        background: var(--tag-bg);
+    }
+
     .hamburger span {
-        width: 25px;
+        width: 24px;
         height: 2px;
         background-color: var(--text-color);
-        border-radius: 1px;
+        margin: 2px 0;
+        border-radius: 2px;
         transition: all 0.3s ease;
     }
 
     .hamburger.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
+        transform: translateY(6px) rotate(45deg);
     }
 
     .hamburger.active span:nth-child(2) {
@@ -301,15 +333,7 @@ body {
     }
 
     .hamburger.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-
-    .hamburger:hover {
-        background: var(--tag-bg);
-    }
-
-    .hamburger:hover span {
-        background-color: var(--primary-color);
+        transform: translateY(-6px) rotate(-45deg);
     }
 
     .nav-indicator {
@@ -317,18 +341,32 @@ body {
     }
 }
 
-/* Dark Mode Mobile Styles */
+/* Dark Mode Mobile Menu */
 [data-theme="dark"] .nav-links {
-    background: var(--navbar-bg);
-    border-top: 1px solid var(--border-color);
+    background: rgba(17, 24, 39, 0.95);
+    border-top: 1px solid rgba(55, 65, 81, 0.5);
+}
+
+[data-theme="dark"] .nav-item {
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .nav-item:hover {
+    background: rgba(55, 65, 81, 0.5);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .nav-item.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
 }
 
 [data-theme="dark"] .hamburger span {
-    background-color: var(--text-color);
+    background-color: #e5e7eb;
 }
 
-[data-theme="dark"] .hamburger:hover span {
-    background-color: var(--primary-color);
+[data-theme="dark"] .hamburger:hover {
+    background: rgba(55, 65, 81, 0.5);
 }
 
 /* Scroll Animation for Navbar */
@@ -926,38 +964,82 @@ footer {
 
 /* Dark Mode Navbar Styles */
 [data-theme="dark"] .navbar {
+    --navbar-bg: rgba(17, 24, 39, 0.95);
     background-color: var(--navbar-bg);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .navbar.scrolled {
-    background-color: rgba(15, 23, 42, 0.98);
-    border-bottom: 1px solid var(--border-color);
+    --navbar-bg: rgba(17, 24, 39, 0.98);
+    background-color: var(--navbar-bg);
+    border-bottom: 1px solid rgba(55, 65, 81, 0.5);
 }
 
 [data-theme="dark"] .nav-item {
-    color: var(--text-color);
+    color: #e5e7eb;
+    transition: all 0.3s ease;
 }
 
 [data-theme="dark"] .nav-item:hover {
-    background: var(--hover-bg);
+    background: rgba(55, 65, 81, 0.5);
+    color: var(--primary-color);
 }
 
 [data-theme="dark"] .nav-item.active {
     color: var(--primary-color);
-    background: var(--tag-bg);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+[data-theme="dark"] .nav-item i {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .nav-item:hover i,
+[data-theme="dark"] .nav-item.active i {
+    color: var(--primary-color);
 }
 
 [data-theme="dark"] .brand-name {
-    color: var(--text-color);
+    color: #e5e7eb;
+    background: linear-gradient(to right, #e5e7eb, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme="dark"] .logo {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .logo-text {
+    color: #e5e7eb;
 }
 
 [data-theme="dark"] .hamburger span {
-    background-color: var(--text-color);
+    background-color: #e5e7eb;
+}
+
+[data-theme="dark"] .hamburger:hover span {
+    background-color: var(--primary-color);
 }
 
 [data-theme="dark"] .nav-indicator {
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* Mobile Navigation Dark Mode */
+@media (max-width: 768px) {
+    [data-theme="dark"] .nav-links {
+        background: rgba(17, 24, 39, 0.95);
+        border-top: 1px solid rgba(55, 65, 81, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .nav-links.active {
+        background: rgba(17, 24, 39, 0.98);
+    }
 }
 
 /* Projects Section Styles */
@@ -994,4 +1076,46 @@ footer {
 
 [data-theme="dark"] .about-bio p {
     color: var(--light-text);
+}
+
+/* Typing Effect Styles */
+.typing-text {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    min-height: 4rem;
+    position: relative;
+    display: inline-block;
+}
+
+.typing-text::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: blink 0.7s infinite;
+    color: var(--primary-color);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.highlight {
+    color: var(--primary-color);
+    display: inline;
+}
+
+/* Responsive typing text */
+@media (max-width: 768px) {
+    .typing-text {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .typing-text {
+        font-size: 2rem;
+    }
 } 
