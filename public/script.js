@@ -1,272 +1,214 @@
-// Mobile Navigation
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const navbar = document.querySelector('.navbar');
-const navItems = document.querySelectorAll('.nav-item');
+// Theme Toggle
 const themeToggle = document.querySelector('.theme-toggle');
-const indicator = document.querySelector('.nav-indicator');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-// Set initial active state
-function setActiveNavItem() {
-    const sections = document.querySelectorAll('section');
-    const scrollPosition = window.scrollY;
+// Check for saved theme preference or use system preference
+const currentTheme = localStorage.getItem('theme') || 
+    (prefersDarkScheme.matches ? 'dark' : 'light');
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        const navItem = document.querySelector(`.nav-item[href="#${section.id}"]`);
+// Set initial theme
+if (currentTheme === 'dark') {
+    document.body.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+} else {
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+}
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            navItems.forEach(item => item.classList.remove('active'));
-            navItem.classList.add('active');
-            
-            // Update indicator position
-            if (window.innerWidth > 768) {
-                indicator.style.width = `${navItem.offsetWidth}px`;
-                indicator.style.left = `${navItem.offsetLeft}px`;
-            }
+// Theme toggle click handler
+themeToggle.addEventListener('click', () => {
+    let theme = document.body.getAttribute('data-theme');
+    if (theme === 'dark') {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+});
+
+// Mobile Navigation
+document.addEventListener('DOMContentLoaded', () => {
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-link');
+    let isMenuOpen = false;
+
+    // Function to open menu
+    function openMenu() {
+        isMenuOpen = true;
+        burgerMenu.classList.add('active');
+        navLinks.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Function to close menu
+    function closeMenu() {
+        isMenuOpen = false;
+        burgerMenu.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Burger menu click handler
+    burgerMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isMenuOpen ? closeMenu() : openMenu();
+    });
+
+    // Close menu when clicking a link
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            if (isMenuOpen) closeMenu();
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && !navLinks.contains(e.target) && !burgerMenu.contains(e.target)) {
+            closeMenu();
         }
     });
+
+    // Close menu on window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && isMenuOpen) {
+            closeMenu();
+        }
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMenuOpen) {
+            closeMenu();
+        }
+    });
+
+    // Active link highlighting on scroll
+    const sections = document.querySelectorAll('section');
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentId = entry.target.getAttribute('id');
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === currentId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, {
+        threshold: 0.5,
+        rootMargin: '-50% 0px -50% 0px'
+    });
+
+    sections.forEach(section => {
+        navObserver.observe(section);
+    });
+});
+
+// Add animation keyframes
+const style = document.createElement('style');
+style.textContent = `
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
+`;
+document.head.appendChild(style);
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
     if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
+        nav.classList.add('scrolled');
     } else {
-        navbar.classList.remove('scrolled');
-    }
-    setActiveNavItem();
-});
-
-// Mobile menu toggle
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
+        nav.classList.remove('scrolled');
     }
 });
 
-// Close mobile menu when clicking a nav item
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
+// Scroll Animations
+const fadeElements = document.querySelectorAll('.fade-in');
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
     });
+}, observerOptions);
+
+fadeElements.forEach(element => {
+    appearOnScroll.observe(element);
 });
 
-// Theme Management
-let isDarkMode = localStorage.getItem('theme') === 'dark';
-
-// Function to update theme
-function updateTheme(isDark) {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    themeToggle.innerHTML = isDark ? 
-        '<i class="fas fa-sun"></i><i class="fas fa-moon"></i>' : 
-        '<i class="fas fa-moon"></i><i class="fas fa-sun"></i>';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-}
-
-// Initialize theme
-updateTheme(isDarkMode);
-
-// Theme toggle event listener
-themeToggle.addEventListener('click', () => {
-    isDarkMode = !isDarkMode;
-    updateTheme(isDarkMode);
-});
-
-// Check system preference
-if (!localStorage.getItem('theme')) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    updateTheme(prefersDark);
-}
-
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!localStorage.getItem('theme')) {
-        updateTheme(e.matches);
-    }
-});
-
-// Smooth scrolling for navigation links
+// Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: targetPosition - navHeight,
+                behavior: 'smooth'
             });
         }
     });
 });
 
-// Update active nav item based on scroll position
-window.addEventListener('scroll', () => {
-    let current = '';
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 60) {
-            current = section.getAttribute('id');
-        }
-    });
+// Contact Form with loading state
+const contactForm = document.getElementById('contact-form');
+const submitButton = contactForm.querySelector('button[type="submit"]');
 
-    navItems.forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('href').slice(1) === current) {
-            item.classList.add('active');
-        }
-    });
-
-    // Add scrolled class to navbar
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-// Initialize nav indicator
-window.addEventListener('load', () => {
-    const activeItem = document.querySelector('.nav-item.active');
-    if (activeItem && window.innerWidth > 768) {
-        indicator.style.width = `${activeItem.offsetWidth}px`;
-        indicator.style.left = `${activeItem.offsetLeft}px`;
-    }
-    typeWriter();
-});
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        const activeItem = document.querySelector('.nav-item.active');
-        if (activeItem) {
-            indicator.style.width = `${activeItem.offsetWidth}px`;
-            indicator.style.left = `${activeItem.offsetLeft}px`;
-        }
-    }
-});
-
-// Intersection Observer for Animations
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all sections
-document.querySelectorAll('section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(20px)';
-    section.style.transition = 'all 0.5s ease-out';
-    observer.observe(section);
-});
-
-// Typing Effect
-async function typeWriter(element, phrases) {
-    for (let phrase of phrases) {
-        // Clear the previous text
-        element.textContent = '';
-        
-        // Type each character of the current phrase
-        for (let i = 0; i < phrase.length; i++) {
-            element.textContent += phrase[i];
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-        
-        // Wait a bit longer between phrases
-        await new Promise(resolve => setTimeout(resolve, 500));
-    }
-}
-
-// Initialize typing effect
-window.addEventListener('load', () => {
-    const typingText = document.querySelector('.typing-text');
-    const phrases = [
-        "Hi",
-        "Hi, I'm",
-        "Hi, I'm Parth",
-        "Hi, I'm Parth Salunke"
-    ];
-    
-    // Start typing effect
-    typeWriter(typingText, phrases);
-});
-
-// Project Card Hover Effect
-const projectCards = document.querySelectorAll('.project-card');
-projectCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-    });
-});
-
-// Skill Items Animation
-const skillItems = document.querySelectorAll('.skill-items span');
-skillItems.forEach((item, index) => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(20px)';
-    item.style.transition = `all 0.3s ease ${index * 0.1}s`;
-    
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    skillObserver.observe(item);
-});
-
-// Navbar Background Change on Scroll
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
-    }
-});
-
-// Form Submission
-const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
+    // Add loading state
+    submitButton.classList.add('loading');
+    submitButton.disabled = true;
     
-    // Here you would typically send the data to your server
-    console.log('Form submitted:', data);
+    // Get form values
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+    };
+    
+    // Simulate form submission delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Here you would typically send this data to a server
+    console.log('Form submitted:', formData);
+    
+    // Remove loading state
+    submitButton.classList.remove('loading');
+    submitButton.disabled = false;
+    
+    // Clear form
+    contactForm.reset();
     
     // Show success message
-    alert('Thank you for your message! I will get back to you soon.');
-    contactForm.reset();
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message fade-in visible';
+    successMessage.textContent = 'Message sent successfully!';
+    contactForm.appendChild(successMessage);
+    
+    // Remove success message after 3 seconds
+    setTimeout(() => {
+        successMessage.remove();
+    }, 3000);
 }); 

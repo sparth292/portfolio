@@ -3,204 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Parth Salunke - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <div class="logo">
-                <span class="logo-text">PS</span>
-            </div>
-            <span class="brand-name">Parth Salunke</span>
-        </div>
-        
-        <div class="nav-links">
-            <a href="#home" class="nav-item active">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a href="#about" class="nav-item">
-                <i class="fas fa-user"></i>
-                <span>About</span>
-            </a>
-            <a href="#projects" class="nav-item">
-                <i class="fas fa-code"></i>
-                <span>Projects</span>
-            </a>
-            <a href="#skills" class="nav-item">
-                <i class="fas fa-laptop-code"></i>
-                <span>Skills</span>
-            </a>
-            <a href="#contact" class="nav-item">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-            <div class="nav-indicator"></div>
-        </div>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
 
-        <div class="nav-actions">
-            
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <div class="logo">
+                <span>PS</span>
             </div>
+            <div class="logo-text">Parth Salunke</div>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
     </nav>
-    
+
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1 class="typing-text">Hi, I'm <span class="highlight">Parth Salunke</span></h1>
-            <p class="subtitle">Full Stack Developer</p>
+            <h1>Hi, I'm <span class="highlight">Parth Salunke</span></h1>
+            <p class="title">Student Developer & Programming Enthusiast</p>
+            <div class="social-links fade-in">
+                <a href="https://github.com/sparth292" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/parthsalunke" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/paajinextdoor" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com/parth__salunke" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
             <div class="cta-buttons">
-                <a href="#projects" class="btn primary">View My Work</a>
-                <a href="#contact" class="btn secondary">Contact Me</a>
+                <a href="#projects" class="btn primary fade-in">View My Work</a>
+                <a href="#contact" class="btn secondary fade-in">Contact Me</a>
             </div>
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="about">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <div class="about-bio">
-                <p class="bio-intro">I am a passionate Full Stack Developer with a strong foundation in both frontend and backend technologies. My journey in software development began with a deep curiosity about how technology can solve real-world problems.</p>
-                <p>With expertise in modern web technologies and frameworks, I specialize in creating robust, scalable, and user-friendly applications. I have hands-on experience with Flutter for mobile development, and I'm proficient in building responsive web applications using HTML, CSS, and JavaScript.</p>
-                <p>My projects reflect my commitment to innovation and problem-solving. From developing AI-powered safety applications to creating educational platforms, I strive to build solutions that make a positive impact. I'm particularly interested in cybersecurity and have contributed to raising awareness through my projects.</p>
-                <p>When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and continuously expanding my knowledge in software development. I believe in writing clean, maintainable code and following best practices to deliver high-quality software solutions.</p>
+        <h2 class="fade-in">About Me</h2>
+        <div class="about-content fade-in">
+            <div class="about-text">
+                <p>Driven by curiosity and a passion for technology, I'm a dedicated second-year Diploma Engineering student at K.J. Somaiya Polytechnic, Mumbai, specializing in programming. By mastering languages like Dart, C, C++, HTML, CSS, and currently diving deep into Java, I am not just learning – I'm preparing to make a real impact.</p>
+                <p>Throughout my journey, coding has become more than a subject; it's the tool through which I creatively address challenges, aiming always to bring fresh, effective solutions to the table. My goal? To transform my academic learnings into tangible results, contributing to projects that push boundaries and set new standards in the tech industry.</p>
             </div>
         </div>
     </section>
 
+    <!-- Projects Section -->
     <section id="projects" class="projects">
-        <h2>Featured Projects</h2>
+        <h2 class="fade-in">Featured Projects</h2>
         <div class="project-grid">
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>Rakshak - A Woman Safety Application</h3>
-                        <div class="project-tags">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Dart</span>
-                        </div>
+            <div class="project-card fade-in">
+                <div class="project-info">
+                    <h3>Rakshak</h3>
+                    <p style="color: white;">An AI-powered women's safety app with gender verification, real-time unsafe zone alerts, and voice-activated SOS.</p>
+                    <div class="project-tags">
+                        <span>Flutter</span>
+                        <span>Firebase</span>
+                        <span>TensorFlow</span>
+                        <span>Dart</span>
                     </div>
-                    <p>An AI-powered women's safety app designed to enhance security through advanced technology. Features include AI-powered gender verification, real-time unsafe zone alerts, anonymous location-based group chats, and voice-activated SOS.</p>
-                    
                     <div class="project-links">
-                        <a href="#" class="btn small"><i class="fab fa-github"></i> Source Code</a>
+                        <a href="#" class="btn secondary">View Source <i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-info">
+                    <h3>CyberPro</h3>
+                    <p style="color: white;">A web platform dedicated to ransomware awareness & prevention, featuring interactive quizzes and cybersecurity resources.</p>
+                    <div class="project-tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Nodejs</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="btn secondary">View Source <i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>CyberPro - A Ransomware Awareness Website</h3>
-                        <div class="project-tags">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
+            <div class="project-card fade-in">
+                <div class="project-info">
+                    <h3>MuseFlow</h3>
+                    <p style="color: white;">MuseFlow is a creative music generation app with an intuitive interface, real-time composition, and customizable sound settings.</p>
+                    <div class="project-tags">
+                        <span>Dart</span>
+                        <span>Flutter</span>
+                        <span>Supabase</span>
+                        <span>Figma</span>
                     </div>
-                    <p>A web-based platform dedicated to ransomware awareness & prevention, making cybersecurity education more accessible and engaging. Features interactive quizzes and comprehensive resources for cybersecurity best practices.</p>
-                   
                     <div class="project-links">
-                        <a href="#" class="btn small"><i class="fab fa-github"></i> Source Code</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>Snake Game in C++</h3>
-                        <div class="project-tags">
-                            <span class="tech-tag">C++</span>
-                            <span class="tech-tag">Game Maker</span>
-                        </div>
-                    </div>
-                    <p>A classic Snake Game implementation in C++ with console-based gameplay, featuring score tracking and adjustable game parameters.</p>
-                    
-                    <div class="project-links">
-                        <a href="#" class="btn small"><i class="fab fa-github"></i> Source Code</a>
+                        <a href="#" class="btn secondary">View Source <i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Skills Section -->
     <section id="skills" class="skills">
-        <h2>Technical Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3>Frontend</h3>
-                <div class="skill-items">
-                    <span>HTML5</span>
-                    <span>CSS3</span>
-                    <span>JavaScript</span>
-                    <span>React</span>
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-container">
+            <div class="skills-category">
+                <h3>Languages</h3>
+                <div class="skills-items">
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                        <div class="skill-info">
+                            <span>Python</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                        <div class="skill-info">
+                            <span>Java</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                        <div class="skill-info">
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="skill-category">
-                <h3>Backend</h3>
-                <div class="skill-items">
-                    <span>Node.js</span>
-                    <span>Java</span>
-                    <span>SQL</span>
+
+            <div class="skills-category">
+                <h3>Web Development</h3>
+                <div class="skills-items">
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                        <div class="skill-info">
+                            <span>HTML5</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                        <div class="skill-info">
+                            <span>CSS3</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+                        <div class="skill-info">
+                            <span>Flutter</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="skill-category">
-                <h3>Tools</h3>
-                <div class="skill-items">
-                    <span>Git</span>
-                    <span>VS Code</span>
-                    <span>Figma</span>
-                    <span>ChatGPT</span>
-                    <span>Cursor</span>
+
+            <div class="skills-category">
+                <h3>Tools & Technologies</h3>
+                <div class="skills-items">
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                        <div class="skill-info">
+                            <span>Git</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="filter: invert(1);">
+                        <div class="skill-info">
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+                        <div class="skill-info">
+                            <span>Figma</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-category">
+                <h3>Databases</h3>
+                <div class="skills-items">
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+                        <div class="skill-info">
+                            <span>Firebase</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                        <div class="skill-info">
+                            <span>MySQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/supabase.png" alt="Supabase">
+                        <div class="skill-info">
+                            <span>Supabase</span>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="contact">
-        <h2>Let's Connect</h2>
-        <div class="contact-container">
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <button type="submit" class="btn primary">Send Message</button>
+        <h2 class="fade-in">Let's Connect</h2>
+        <div class="contact-container fade-in">
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
             </form>
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <p>sparthsalunke@gmail.com</p>
+                    <a href="mailto:sparthsalunke@gmail.com">sparthsalunke@gmail.com</a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <p>91+ 8169342724</p>
+                    <a href="tel:+918169342724">+91 8169342724</a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <p>Location takaychi aahe</p>
+                    <span>Mumbai, Maharashtra</span>
                 </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <div class="social-links-footer">
+                    <a href="https://github.com/parthsalunke" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/parthsalunke" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/parthsalunke" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/parthsalunke" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Parth Salunke. All rights reserved.</p>
-    </footer>
+    <!-- Footer -->
+    
 
     <script src="script.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html> 
